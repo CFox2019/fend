@@ -1,4 +1,6 @@
-function handleSubmit(event) {
+import { checkForName } from './nameChecker'
+
+async function handleSubmit(event) {
     event.preventDefault()
 
     // check what text was put into the form field
@@ -6,11 +8,12 @@ function handleSubmit(event) {
     checkForName(formText)
 
     console.log("::: Form Submitted :::")
-    fetch('http://localhost:8080/test')
-    .then(res => res.json())
-    .then(function(res) {
-        document.getElementById('results').innerHTML = res.message
-    })
+    const response = await fetch('http://localhost:8080/test', {
+        mode: 'cors',
+        credentials: 'same-origin'
+    });
+    const json = await response.json();
+    document.getElementById('results').innerHTML = json.message;
 }
 
 export { handleSubmit }
