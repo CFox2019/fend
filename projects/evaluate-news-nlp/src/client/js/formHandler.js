@@ -1,19 +1,38 @@
-import { checkForName } from './nameChecker'
+import { checkIfValidUrl } from './urlValidator'
 
 async function handleSubmit(event) {
     event.preventDefault()
 
     // check what text was put into the form field
-    let formText = document.getElementById('name').value
-    checkForName(formText)
+    let formText = document.getElementById('url').value
+    if (!checkIfValidUrl(formText)) {
+        alert("You've entered an invalid URL")
+        return
+    }
+
+    const submit = document.getElementById('submit')
+    submit.value = 'Loading...'
+    submit.disabled = true
+    const results = document.getElementById('results')
+    results.innerHTML = ""
 
     console.log("::: Form Submitted :::")
-    const response = await fetch('http://localhost:8080/test', {
+    const response = await fetch('http://localhost:8080/fetchContext', {
+        method: 'post',
         mode: 'cors',
-        credentials: 'same-origin'
-    });
-    const json = await response.json();
-    document.getElementById('results').innerHTML = json.message;
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            url: formText
+        })
+    })
+    const json = await response.json()
+    results.innerHTML = json.context
+    submit.value = 'Submit'
+    submit.disabled = false
 }
 
 export { handleSubmit }

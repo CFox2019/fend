@@ -1,4 +1,4 @@
-import { checkForName } from './js/nameChecker'
+import { checkIfValidUrl } from './js/urlValidator'
 import { handleSubmit } from './js/formHandler'
 import './styles/base.scss'
 import './styles/footer.scss'
@@ -7,10 +7,10 @@ import './styles/header.scss'
 import './styles/resets.scss'
 
 export {
-    checkForName,
+    checkIfValidUrl,
     handleSubmit
 }
 
-console.log(checkForName);
+console.log(checkIfValidUrl);
 
 console.log("CHANGE!!");
