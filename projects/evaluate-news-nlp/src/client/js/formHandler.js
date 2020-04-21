@@ -17,7 +17,7 @@ async function handleSubmit(event) {
     results.innerHTML = ""
 
     console.log("::: Form Submitted :::")
-    const response = await fetch('http://localhost:8080/fetchContext', {
+    const response = await fetch('http://localhost:8080/fetchSentiment', {
         method: 'post',
         mode: 'cors',
         credentials: 'same-origin',
@@ -30,7 +30,7 @@ async function handleSubmit(event) {
         })
     })
     const json = await response.json()
-    results.innerHTML = json.context
+    results.innerHTML = json.sentiment
     submit.value = 'Submit'
     submit.disabled = false
 }

@@ -19,15 +19,22 @@ app.get('/', function (req, res) {
     res.sendFile('dist/index.html')
 })
 
-app.post('/fetchContext', function (req, res) {
+app.post('/fetchSentiment', function (req, res) {
     const url = req.body.url
     textapi.sentiment({
         url: url
     }, (error, json) => {
+        if (error) {
+            res.send({
+                sentiment: error.message
+            })
+            return
+        }
+
         const { polarity, subjectivity } = json
-        const context = `This article's polarity is ${polarity} and it's subjectivity is ${subjectivity}.`
+        const sentiment = `This article's polarity is ${polarity} and its subjectivity is ${subjectivity}.`
         res.send({
-            context: context
+            sentiment: sentiment
         })
     })
 
