@@ -17,7 +17,7 @@ async function handleSubmit(event) {
     results.innerHTML = ""
 
     console.log("::: Form Submitted :::")
-    const response = await fetch('http://localhost:8080/fetchSentiment', {
+    const response = await fetch('/fetchSentiment', {
         method: 'post',
         mode: 'cors',
         credentials: 'same-origin',
