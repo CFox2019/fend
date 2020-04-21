@@ -40,7 +40,7 @@ app.post('/fetchSentiment', function (req, res) {
 
 })
 
-const port = 8080
+const port = process.env.PORT
 app.listen(port, function () {
     console.log(`News Article NLP app listening on port ${port}!`)
 })
